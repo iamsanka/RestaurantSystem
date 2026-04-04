@@ -1,0 +1,18 @@
+/* 🌿 GALLERY SECTION */
+.gallery-section {
+    padding: 80px 20px;
+    background: var(--forest-green);
+    color: white;
+    text-align: center;
+}
+
+.gallery-title {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.gallery-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}

@@ -1,0 +1,58 @@
+/* 🌿 HERO SLIDER */
+.hero-slider {
+    width: 100%;
+
+    /* Prevent navbar overlap */
+    padding-top: 100px;
+    /* adjust if your navbar is taller or shorter */
+
+    height: calc(100vh - 100px);
+    min-height: 500px;
+
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    transition: background-image 1.2s ease-in-out;
+}
+
+/* dark overlay for readability */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(37, 61, 44, 0.55);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+}
+
+.hero-content h1 {
+    margin-bottom: 10px;
+}
+
+.hero-content p {
+    margin-bottom: 20px;
+}
+
+.hero-btn {
+    padding: 14px 28px;
+    background: var(--forest-medium);
+    color: var(--forest-dark);
+    border-radius: 6px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.hero-btn:hover {
+    background: var(--forest-mint);
+}

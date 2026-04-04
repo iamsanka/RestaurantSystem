@@ -1,0 +1,64 @@
+/* 🌿 ABOUT SECTION */
+.about-section {
+    padding: 80px 20px;
+    background: var(--forest-dark);
+    color: var(--forest-mint);
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+
+/* Each block (image + text) */
+.about-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Reverse layout for second block */
+.about-block.reverse {
+    flex-direction: row-reverse;
+}
+
+/* Image styling */
+.about-image img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Text styling */
+.about-text {
+    max-width: 600px;
+}
+
+.about-text h2 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: var(--forest-mint);
+}
+
+.about-text p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    color: #e8ffe9;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+
+    .about-block,
+    .about-block.reverse {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-image img {
+        max-width: 100%;
+    }
+}

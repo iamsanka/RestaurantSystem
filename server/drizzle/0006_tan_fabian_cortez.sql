@@ -1,0 +1,1 @@
+ALTER TABLE "orders" ADD COLUMN "preparation_time" integer;
