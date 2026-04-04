@@ -10,7 +10,7 @@ dotenv.config();
 // Railway injects PORT automatically
 const PORT = process.env.PORT || 5001;
 
-// ⭐ MOUNT ROUTES BEFORE CREATING SERVER
+// ⭐ MOUNT ROUTES BEFORE creating the server
 app.use("/api/auth", authRoutes);
 
 // Create HTTP server AFTER routes are mounted
