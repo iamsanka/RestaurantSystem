@@ -8,7 +8,7 @@ import Portal from "../components/Portal";
 import ReceiptTemplate from "../lib/ReceiptTemplate";
 import "../styles/colors.css";
 
-export default function OrderSubmittedPage() {
+export default function OrderSubmittedContent() {
   const params = useSearchParams();
   const router = useRouter();
 
@@ -21,17 +21,14 @@ export default function OrderSubmittedPage() {
   const [isClient, setIsClient] = useState(false);
   const receiptRef = useRef(null);
 
-  // Ensure client-side rendering before hydration
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  // Safe date
   useEffect(() => {
     setReceiptDate(new Date().toLocaleString());
   }, []);
 
-  // Secure fetch
   useEffect(() => {
     if (!orderId) return;
 
@@ -51,7 +48,6 @@ export default function OrderSubmittedPage() {
       });
   }, [orderId]);
 
-  // Prevent hydration mismatch
   if (!isClient || !order) {
     return (
       <div
@@ -70,7 +66,6 @@ export default function OrderSubmittedPage() {
     );
   }
 
-  // ⭐ FIXED PDF DOWNLOAD — A4 but fully colored background
   const downloadReceipt = async () => {
     await new Promise((resolve) => setTimeout(resolve, 150));
 
@@ -79,7 +74,7 @@ export default function OrderSubmittedPage() {
 
     const canvas = await html2canvas(element, {
       scale: 2,
-      backgroundColor: null, // keep your receipt background
+      backgroundColor: null,
       useCORS: true,
     });
 
@@ -92,18 +87,15 @@ export default function OrderSubmittedPage() {
     const imgWidth = pdfWidth;
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-    // ⭐ Paint entire A4 page with your receipt background color (#fdf7ef)
     pdf.setFillColor(253, 247, 239);
     pdf.rect(0, 0, pdfWidth, pdfHeight, "F");
 
-    // Center vertically if shorter than page
     const y = imgHeight < pdfHeight ? (pdfHeight - imgHeight) / 2 : 0;
 
     pdf.addImage(imgData, "PNG", 0, y, imgWidth, imgHeight);
     pdf.save(`Receipt-${order.order_number}.pdf`);
   };
 
-  // Email Receipt
   const sendReceiptEmail = async () => {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/email/send-receipt`,
@@ -125,7 +117,6 @@ export default function OrderSubmittedPage() {
 
   return (
     <>
-      {/* PORTAL RECEIPT */}
       <Portal>
         <div style={{ position: "absolute", top: "-9999px", left: "-9999px" }}>
           <ReceiptTemplate
@@ -138,7 +129,6 @@ export default function OrderSubmittedPage() {
         </div>
       </Portal>
 
-      {/* MAIN CONFIRMATION PAGE */}
       <div
         style={{
           minHeight: "100vh",
@@ -162,7 +152,6 @@ export default function OrderSubmittedPage() {
             boxShadow: "0 8px 30px rgba(0,0,0,0.4)",
           }}
         >
-          {/* Success Icon */}
           <div
             style={{
               width: "90px",
@@ -199,7 +188,6 @@ export default function OrderSubmittedPage() {
             Order Number: {order.order_number}
           </p>
 
-          {/* BUTTONS */}
           <div
             style={{
               display: "flex",
@@ -259,7 +247,6 @@ export default function OrderSubmittedPage() {
         </div>
       </div>
 
-      {/* POP ANIMATION */}
       <style>{`
         @keyframes pop {
           0% { transform: scale(0.5); opacity: 0; }
@@ -267,31 +254,5 @@ export default function OrderSubmittedPage() {
         }
       `}</style>
     </>
-  );
-}
-"use client";
-
-import { Suspense } from "react";
-import OrderSubmittedContent from "./OrderSubmittedContent";
-
-export default function OrderSubmittedPage() {
-  return (
-    <Suspense fallback={
-      <div
-        style={{
-          minHeight: "100vh",
-          background: "var(--forest-dark)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          color: "var(--forest-mint)",
-          fontSize: "24px",
-        }}
-      >
-        Loading your order…
-      </div>
-    }>
-      <OrderSubmittedContent />
-    </Suspense>
   );
 }
