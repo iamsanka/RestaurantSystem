@@ -1,5 +1,11 @@
 "use client";
+
 import { createContext, useContext, useState, useEffect } from "react";
+import {
+  getCartCookie,
+  setCartCookie,
+  clearCartCookie,
+} from "../utils/cookieCart";
 
 const CartContext = createContext();
 
@@ -7,15 +13,17 @@ export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
-  // Load cart from localStorage
+  // Load cart from cookies on first client render
   useEffect(() => {
-    const saved = localStorage.getItem("cart");
-    if (saved) setCart(JSON.parse(saved));
+    const saved = getCartCookie();
+    if (saved && Array.isArray(saved)) {
+      setCart(saved);
+    }
   }, []);
 
-  // Save cart to localStorage
+  // Save cart to cookies whenever it changes
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    setCartCookie(cart);
   }, [cart]);
 
   /**
@@ -23,17 +31,14 @@ export function CartProvider({ children }) {
    */
   const addToCart = (item) => {
     setCart((prev) => {
-      // Check if this exact customization already exists
       const existing = prev.find((i) => i.uniqueKey === item.uniqueKey);
 
       if (existing) {
-        // Increase qty of the matching customized item
         return prev.map((i) =>
           i.uniqueKey === item.uniqueKey ? { ...i, qty: i.qty + 1 } : i
         );
       }
 
-      // Otherwise add as a NEW customized item
       return [...prev, { ...item, qty: 1 }];
     });
 
@@ -62,7 +67,10 @@ export function CartProvider({ children }) {
     setCart((prev) => prev.filter((i) => i.uniqueKey !== uniqueKey));
   };
 
-  const clearCart = () => setCart([]);
+  const clearCart = () => {
+    setCart([]);
+    clearCartCookie();
+  };
 
   return (
     <CartContext.Provider
@@ -83,3 +91,4 @@ export function CartProvider({ children }) {
 }
 
 export const useCart = () => useContext(CartContext);
+

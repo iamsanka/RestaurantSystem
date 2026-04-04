@@ -8,6 +8,7 @@ import CardPaymentForm from "./CardPaymentForm";
 export default function CheckoutModal({ isOpen, onClose }) {
   const { cart, clearCart } = useCart();
   const [clientSecret, setClientSecret] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const [form, setForm] = useState({
     name: "",
@@ -18,8 +19,10 @@ export default function CheckoutModal({ isOpen, onClose }) {
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+  // Create PaymentIntent when modal opens
   useEffect(() => {
     if (!isOpen || form.payment_method !== "card") return;
+    if (!cart || cart.length === 0) return; // prevent empty cart issues
 
     const amount = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
     const amountInCents = Math.round(amount * 100);
@@ -30,14 +33,25 @@ export default function CheckoutModal({ isOpen, onClose }) {
       body: JSON.stringify({ amount: amountInCents }),
     })
       .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
+      .then((data) => setClientSecret(data.clientSecret))
+      .catch((err) => console.error("PaymentIntent error:", err));
   }, [isOpen, form.payment_method, cart]);
 
   const createOrder = async (payment_status) => {
+    if (isProcessing) return;
+    setIsProcessing(true);
+
     const total_amount = cart.reduce(
       (sum, item) => sum + item.price * item.qty,
       0
     );
+
+    // Prevent sending empty cart to backend
+    if (!cart || cart.length === 0) {
+      alert("Your cart is empty. Please add items again.");
+      setIsProcessing(false);
+      return;
+    }
 
     const orderRes = await fetch(`${API_URL}/api/orders`, {
       method: "POST",
@@ -125,9 +139,10 @@ export default function CheckoutModal({ isOpen, onClose }) {
         {form.payment_method === "cash" && (
           <button
             className="confirm-btn"
+            disabled={isProcessing}
             onClick={() => createOrder("unpaid")}
           >
-            Confirm Order
+            {isProcessing ? "Processing..." : "Confirm Order"}
           </button>
         )}
 
