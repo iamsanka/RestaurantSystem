@@ -3,19 +3,18 @@ import dotenv from "dotenv";
 import { testConnection } from "./src/db.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
-
-// ⭐ ADD THIS
 import authRoutes from "./src/routes/auth.js";
 
 dotenv.config();
 
+// Railway injects PORT automatically
 const PORT = process.env.PORT || 5001;
 
-// Create HTTP server
-const httpServer = createServer(app);
-
-// ⭐ MOUNT AUTH ROUTES
+// ⭐ MOUNT ROUTES BEFORE CREATING SERVER
 app.use("/api/auth", authRoutes);
+
+// Create HTTP server AFTER routes are mounted
+const httpServer = createServer(app);
 
 // Attach Socket.io
 export const io = new Server(httpServer, {
@@ -25,7 +24,7 @@ export const io = new Server(httpServer, {
   },
 });
 
-// Socket.io connection event
+// Socket.io events
 io.on("connection", (socket) => {
   console.log("Staff connected:", socket.id);
 
@@ -34,8 +33,8 @@ io.on("connection", (socket) => {
   });
 });
 
-// Start server
-httpServer.listen(PORT, () => {
+// ⭐ IMPORTANT: Bind to 0.0.0.0 for Railway
+httpServer.listen(PORT, "0.0.0.0", async () => {
   console.log(`Server running on port ${PORT}`);
-  testConnection();
+  await testConnection();
 });
