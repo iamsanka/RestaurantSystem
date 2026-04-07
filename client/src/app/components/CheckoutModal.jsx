@@ -19,10 +19,9 @@ export default function CheckoutModal({ isOpen, onClose }) {
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-  // Create PaymentIntent when modal opens
   useEffect(() => {
     if (!isOpen || form.payment_method !== "card") return;
-    if (!cart || cart.length === 0) return; // prevent empty cart issues
+    if (!cart || cart.length === 0) return;
 
     const amount = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
     const amountInCents = Math.round(amount * 100);
@@ -46,7 +45,6 @@ export default function CheckoutModal({ isOpen, onClose }) {
       0
     );
 
-    // Prevent sending empty cart to backend
     if (!cart || cart.length === 0) {
       alert("Your cart is empty. Please add items again.");
       setIsProcessing(false);
@@ -89,12 +87,13 @@ export default function CheckoutModal({ isOpen, onClose }) {
   return (
     <div className="checkout-overlay">
       <div className="checkout-modal">
-        <h2>Confirm Your Order</h2>
+        <h2 className="checkout-title">Confirm Your Order</h2>
 
         <input
           type="text"
           placeholder="Full Name"
           required
+          className="checkout-input"
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
         />
@@ -103,6 +102,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
           type="email"
           placeholder="Email"
           required
+          className="checkout-input"
           value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
@@ -111,12 +111,14 @@ export default function CheckoutModal({ isOpen, onClose }) {
           type="text"
           placeholder="Phone Number"
           required
+          className="checkout-input"
           value={form.phone}
           onChange={(e) => setForm({ ...form, phone: e.target.value })}
         />
 
-        <label>Payment Method</label>
+        <label className="checkout-label">Payment Method</label>
         <select
+          className="checkout-select"
           value={form.payment_method}
           onChange={(e) =>
             setForm({ ...form, payment_method: e.target.value })
@@ -126,14 +128,17 @@ export default function CheckoutModal({ isOpen, onClose }) {
           <option value="cash">Pay at Counter</option>
         </select>
 
+        {/* ⭐ WRAPPED STRIPE FORM WITH THEME COLORS */}
         {form.payment_method === "card" && clientSecret && (
-          <StripeProvider clientSecret={clientSecret}>
-            <CardPaymentForm
-              form={form}
-              cart={cart}
-              onSuccess={(status) => createOrder(status)}
-            />
-          </StripeProvider>
+          <div className="stripe-wrapper">
+            <StripeProvider clientSecret={clientSecret}>
+              <CardPaymentForm
+                form={form}
+                cart={cart}
+                onSuccess={(status) => createOrder(status)}
+              />
+            </StripeProvider>
+          </div>
         )}
 
         {form.payment_method === "cash" && (
@@ -150,6 +155,100 @@ export default function CheckoutModal({ isOpen, onClose }) {
           ×
         </button>
       </div>
+
+      <style jsx>{`
+        .checkout-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.65);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 9999;
+        }
+
+        .checkout-modal {
+          background: var(--forest-dark);
+          padding: 30px;
+          width: 420px;
+          border-radius: 16px;
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+          position: relative;
+          color: white;
+        }
+
+        .checkout-title {
+          margin-bottom: 20px;
+          font-size: 1.6rem;
+          font-weight: bold;
+          color: var(--forest-mint);
+        }
+
+        .checkout-input,
+        .checkout-select {
+          width: 100%;
+          padding: 12px;
+          margin-bottom: 15px;
+          border-radius: 10px;
+          border: 1px solid #444;
+          background: #1a1f1a;
+          color: white;
+          font-size: 1rem;
+        }
+
+        .checkout-input::placeholder {
+          color: #bbb;
+        }
+
+        .checkout-label {
+          margin-bottom: 6px;
+          display: block;
+          font-weight: bold;
+          color: var(--forest-mint);
+        }
+
+        /* ⭐ NEW STRIPE WRAPPER */
+        .stripe-wrapper {
+          background: #0f1a0f;
+          padding: 18px;
+          border-radius: 12px;
+          border: 1px solid #2a3a2a;
+          margin-top: 10px;
+        }
+
+        .confirm-btn {
+          width: 100%;
+          padding: 14px;
+          background: var(--forest-mint);
+          color: var(--forest-dark);
+          border: none;
+          border-radius: 10px;
+          font-size: 1.1rem;
+          font-weight: bold;
+          cursor: pointer;
+          margin-top: 10px;
+        }
+
+        .confirm-btn:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        .close-modal {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          background: transparent;
+          border: none;
+          font-size: 28px;
+          color: #ccc;
+          cursor: pointer;
+        }
+
+        .close-modal:hover {
+          color: white;
+        }
+      `}</style>
     </div>
   );
 }

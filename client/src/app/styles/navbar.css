@@ -6,7 +6,6 @@
     z-index: 999;
     padding: 15px 0;
 
-    /* Transparent yellow tint */
     background: rgba(255, 212, 0, 0.25);
     border-bottom: 2px solid white;
 
@@ -53,7 +52,7 @@
     list-style: none;
 }
 
-/* ⭐ NAV LINK BUTTONS (NEW) */
+/* ⭐ NAV LINK BUTTONS */
 .nav-links button {
     background: transparent;
     border: 2px solid white;
@@ -61,7 +60,6 @@
     border-radius: 20px;
 
     font-weight: 700;
-    /* bold */
     font-size: 1rem;
     color: var(--pure-black);
 
@@ -69,7 +67,6 @@
     transition: all 0.25s ease;
 }
 
-/* Hover effect */
 .nav-links button:hover {
     background: white;
     color: var(--pure-black);
@@ -120,4 +117,82 @@
     font-size: 0.75rem;
     font-weight: bold;
     border: 2px solid white;
+}
+
+/* ⭐ HAMBURGER ICON (MOBILE ONLY) */
+.hamburger {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--pure-black);
+}
+
+/* ⭐ MOBILE MENU (FULL WIDTH DROPDOWN) */
+.mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+
+    background: var(--neon-yellow);
+    border-bottom: 2px solid white;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    /* CLOSED STATE */
+    max-height: 0;
+    padding: 0;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+
+    transition:
+        max-height 0.35s ease,
+        padding 0.35s ease,
+        opacity 0.25s ease;
+
+    z-index: 998;
+}
+
+.mobile-menu.open {
+    max-height: 400px;
+    padding: 20px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ⭐ MOBILE MENU BUTTONS */
+.mobile-menu button,
+.mobile-login-btn,
+.mobile-cart-btn {
+    background: var(--pure-black);
+    color: var(--neon-yellow);
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+.mobile-login-btn {
+    text-decoration: none;
+}
+
+/* ⭐ RESPONSIVE BREAKPOINT */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .menu-btn {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+    }
 }

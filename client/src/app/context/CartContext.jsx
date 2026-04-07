@@ -13,7 +13,16 @@ export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
-  // Load cart from cookies on first client render
+  // Clear cart ONLY on full page refresh
+  useEffect(() => {
+    if (!sessionStorage.getItem("cartLoaded")) {
+      clearCartCookie();
+      setCart([]);
+      sessionStorage.setItem("cartLoaded", "true");
+    }
+  }, []);
+
+  // Load cart from cookies after refresh logic
   useEffect(() => {
     const saved = getCartCookie();
     if (saved && Array.isArray(saved)) {
@@ -26,9 +35,6 @@ export function CartProvider({ children }) {
     setCartCookie(cart);
   }, [cart]);
 
-  /**
-   * Add item to cart using uniqueKey
-   */
   const addToCart = (item) => {
     setCart((prev) => {
       const existing = prev.find((i) => i.uniqueKey === item.uniqueKey);
@@ -91,4 +97,3 @@ export function CartProvider({ children }) {
 }
 
 export const useCart = () => useContext(CartContext);
-

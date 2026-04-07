@@ -101,8 +101,19 @@ export default function Footer() {
 
       {/* COPYRIGHT */}
       <div className="footer-bottom">
-        <p>Copyright © {currentYear} SanD. All Rights Reserved.</p>
+        <p>
+          Copyright © {currentYear} SanD. All Rights Reserved. 
+          <a 
+            href="https://iamsankadesilva.vercel.app/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ marginLeft: "6px", textDecoration: "underline" }}
+          >
+            Built by Sanka De Silva
+          </a>
+        </p>
       </div>
+
 
     </footer>
   );

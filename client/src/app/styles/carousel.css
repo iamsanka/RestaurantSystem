@@ -14,7 +14,7 @@
     transition: transform 0.6s ease;
 }
 
-/* ⭐ Each image */
+/* ⭐ Each image (DESKTOP: 3 per slide) */
 .carousel-img {
     width: 32%;
     height: 350px;
@@ -51,11 +51,33 @@
     color: white;
 }
 
-/* ⭐ FIXED — Arrows visible */
 .carousel-btn.left {
     left: 10px;
 }
 
 .carousel-btn.right {
     right: 10px;
+}
+
+/* ⭐ MOBILE — Only 1 image per slide */
+@media (max-width: 768px) {
+
+    /* Remove spacing so no image peeks in */
+    .carousel-track {
+        gap: 0;
+    }
+
+    /* Full-width image */
+    .carousel-img {
+        width: 100%;
+        flex-shrink: 0;
+        height: 260px;
+        border-radius: 10px;
+    }
+
+    /* Smaller arrows */
+    .carousel-btn {
+        padding: 8px 12px;
+        font-size: 1.5rem;
+    }
 }

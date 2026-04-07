@@ -11,8 +11,19 @@ export default function Carousel() {
     "/gallery/6.jpg"
   ];
 
-  // Clone first 3 images at the end
-  const extended = [...images, ...images.slice(0, 3)];
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  // Clone slides based on mode
+  const extended = isMobile
+    ? [...images, images[0]] // clone 1
+    : [...images, ...images.slice(0, 3)]; // clone 3
 
   const [index, setIndex] = useState(0);
   const trackRef = useRef(null);
@@ -26,33 +37,37 @@ export default function Carousel() {
     return () => clearInterval(interval);
   }, []);
 
-  // Smooth infinite loop logic
+  // Infinite loop logic
   useEffect(() => {
     const total = images.length;
 
-    // When reaching the cloned images, reset instantly to real index 0
-    if (index === total) {
+    const lastMobileIndex = total - 1; // last real slide
+    const lastDesktopIndex = total - 3; // last full desktop slide
+
+    const resetPoint = isMobile ? lastMobileIndex : lastDesktopIndex;
+
+    // Forward loop reset
+    if (index === resetPoint + 1) {
       setTimeout(() => {
         trackRef.current.style.transition = "none";
         setIndex(0);
 
-        // Re-enable animation
         requestAnimationFrame(() => {
           trackRef.current.style.transition = "transform 0.6s ease";
         });
-      }, 600); // wait for slide animation to finish
+      }, 600);
     }
 
-    // When going backwards from index 0 → jump to last real slide
+    // Backward loop reset
     if (index === -1) {
       trackRef.current.style.transition = "none";
-      setIndex(images.length - 1);
+      setIndex(resetPoint);
 
       requestAnimationFrame(() => {
         trackRef.current.style.transition = "transform 0.6s ease";
       });
     }
-  }, [index, images.length]);
+  }, [index, images.length, isMobile]);
 
   return (
     <div className="carousel">
@@ -62,7 +77,7 @@ export default function Carousel() {
         className="carousel-track"
         ref={trackRef}
         style={{
-          transform: `translateX(-${index * (100 / 3)}%)`,
+          transform: `translateX(-${index * (isMobile ? 100 : 100 / 3)}%)`,
           transition: "transform 0.6s ease"
         }}
       >

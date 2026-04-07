@@ -27,6 +27,33 @@
     margin-bottom: 15px;
     border-radius: 8px;
     border: none;
+    font-size: 1rem;
+}
+
+/* ⭐ FIX: Make dropdown text visible */
+.checkout-modal select {
+    background: #1a1f1a !important;
+    /* dark background */
+    color: white !important;
+    /* visible text */
+    border: 1px solid #444;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* ⭐ FIX: Make dropdown menu options visible */
+.checkout-modal select option {
+    background: #1a1f1a !important;
+    color: white !important;
+}
+
+/* Optional: Mint border on focus */
+.checkout-modal select:focus,
+.checkout-modal input:focus {
+    outline: none;
+    border: 1px solid var(--forest-mint);
+    box-shadow: 0 0 0 2px rgba(168, 255, 191, 0.3);
 }
 
 .confirm-btn {

@@ -53,11 +53,11 @@ export default function OrderSubmittedContent() {
       <div
         style={{
           minHeight: "100vh",
-          background: "var(--forest-dark)",
+          background: "var(--neon-yellow)",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          color: "var(--forest-mint)",
+          color: "var(--pure-black)",
           fontSize: "24px",
         }}
       >
@@ -87,7 +87,7 @@ export default function OrderSubmittedContent() {
     const imgWidth = pdfWidth;
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-    pdf.setFillColor(253, 247, 239);
+    pdf.setFillColor(13, 13, 13);
     pdf.rect(0, 0, pdfWidth, pdfHeight, "F");
 
     const y = imgHeight < pdfHeight ? (pdfHeight - imgHeight) / 2 : 0;
@@ -132,24 +132,25 @@ export default function OrderSubmittedContent() {
       <div
         style={{
           minHeight: "100vh",
-          background: "var(--forest-dark)",
+          background: "var(--neon-yellow)",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           padding: "40px",
-          color: "var(--forest-mint)",
+          color: "var(--pure-black)",
           fontFamily: "Inter, sans-serif",
         }}
       >
         <div
           style={{
-            background: "var(--forest-green)",
+            background: "#111111",
             padding: "40px",
             borderRadius: "16px",
             width: "100%",
             maxWidth: "600px",
             textAlign: "center",
-            boxShadow: "0 8px 30px rgba(0,0,0,0.4)",
+            boxShadow: "0 8px 30px rgba(0,0,0,0.6)",
+            border: "1px solid var(--warm-gold)",
           }}
         >
           <div
@@ -157,7 +158,7 @@ export default function OrderSubmittedContent() {
               width: "90px",
               height: "90px",
               borderRadius: "50%",
-              background: "var(--forest-mint)",
+              background: "var(--warm-gold)",
               margin: "0 auto 20px",
               display: "flex",
               alignItems: "center",
@@ -165,16 +166,15 @@ export default function OrderSubmittedContent() {
               animation: "pop 0.6s ease-out",
             }}
           >
-            <span style={{ fontSize: "48px", color: "var(--forest-dark)" }}>✓</span>
+            <span style={{ fontSize: "48px", color: "var(--pure-black)" }}>✓</span>
           </div>
 
-          <h1 style={{ fontSize: "32px", marginBottom: "10px" }}>
+          <h1 style={{ fontSize: "32px", marginBottom: "10px", color: "var(--neon-yellow)" }}>
             Order Submitted!
           </h1>
 
-          <p style={{ fontSize: "18px", marginBottom: "20px" }}>
-            Thank you, <strong>{order.customer_name}</strong> — your order has been
-            received.
+          <p style={{ fontSize: "18px", marginBottom: "20px", color: "#e6e6e6" }}>
+            Thank you, <strong>{order.customer_name}</strong> — your order has been received.
           </p>
 
           <p
@@ -182,7 +182,7 @@ export default function OrderSubmittedContent() {
               fontSize: "20px",
               fontWeight: "bold",
               marginBottom: "30px",
-              color: "var(--forest-mint)",
+              color: "var(--warm-gold)",
             }}
           >
             Order Number: {order.order_number}
@@ -200,9 +200,9 @@ export default function OrderSubmittedContent() {
               onClick={downloadReceipt}
               style={{
                 padding: "14px 24px",
-                background: "var(--forest-medium)",
-                color: "var(--forest-dark)",
-                border: "none",
+                background: "#333",
+                color: "var(--neon-yellow)",
+                border: "1px solid var(--warm-gold)",
                 borderRadius: "8px",
                 fontSize: "16px",
                 cursor: "pointer",
@@ -216,7 +216,7 @@ export default function OrderSubmittedContent() {
               onClick={sendReceiptEmail}
               style={{
                 padding: "14px 24px",
-                background: "#ff9800",
+                background: "var(--soft-orange)",
                 color: "#fff",
                 border: "none",
                 borderRadius: "8px",
@@ -232,8 +232,8 @@ export default function OrderSubmittedContent() {
               onClick={() => router.push("/")}
               style={{
                 padding: "14px 24px",
-                background: "var(--forest-mint)",
-                color: "var(--forest-dark)",
+                background: "var(--neon-yellow)",
+                color: "var(--pure-black)",
                 border: "none",
                 borderRadius: "8px",
                 fontSize: "16px",
