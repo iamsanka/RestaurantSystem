@@ -8,32 +8,40 @@ import ordersRoute from "./routes/orders.js";
 import paymentsRoute from "./routes/payments.js";
 import emailRoutes from "./routes/email.js";
 import menuRouter from "./routes/menu.js";
-import menuRoutes from "./routes/menu.js";
 import categoriesRoute from "./routes/categories.js";
 
 dotenv.config();
 
 const app = express();
 
-app.use(cors());
+/* ---------------------------------------------
+   ⭐ FIXED CORS FOR PRODUCTION
+---------------------------------------------- */
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      process.env.FRONTEND_URL, // your Vercel domain
+    ],
+    credentials: true,
+  }),
+);
+
+/* ---------------------------------------------
+   ⭐ TRUST PROXY (Railway HTTPS)
+---------------------------------------------- */
+app.set("trust proxy", 1);
+
 app.use(express.json());
 
 // Routes
 app.use("/health", healthRouter);
-
-//auth route
 app.use("/api/auth", authRouter);
-//admin route
 app.use("/admin", adminRouter);
-//orders
 app.use("/api/orders", ordersRoute);
-//payments
 app.use("/api/payments", paymentsRoute);
-//email invoice
 app.use("/api/email", emailRoutes);
-//menu
 app.use("/api/menu", menuRouter);
-//categories
 app.use("/api/categories", categoriesRoute);
 
 export default app;
