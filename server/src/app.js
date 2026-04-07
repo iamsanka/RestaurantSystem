@@ -19,13 +19,12 @@ const app = express();
 ---------------------------------------------- */
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      process.env.FRONTEND_URL, // your Vercel domain
-    ],
+    origin: ["http://localhost:3000", "https://wrapmaster.vercel.app"],
     credentials: true,
   }),
 );
+
+app.set("trust proxy", 1);
 
 /* ---------------------------------------------
    ⭐ TRUST PROXY (Railway HTTPS)
