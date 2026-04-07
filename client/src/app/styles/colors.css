@@ -1,7 +1,15 @@
-/* 🌿 COLOR PALETTE */
 :root {
-    --forest-dark: #253D2C;
-    --forest-green: #2E6F40;
-    --forest-medium: #68BA7F;
-    --forest-mint: #CFFFDC;
+    /* Main Brand Colors */
+    --neon-yellow: #FFD400;
+    /* primary */
+    --warm-gold: #FFB800;
+    /* secondary */
+    --soft-orange: #FF7A00;
+    /* accent */
+
+    /* Dark Bases */
+    --midnight-black: #0D0D0D;
+    /* deep black for backgrounds */
+    --pure-black: #000000;
+    /* true black for text or contrast */
 }

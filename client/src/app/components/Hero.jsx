@@ -16,23 +16,24 @@ export default function Hero() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
-    }, 3000); // change every 3 seconds
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section
-      className="hero hero-slider"
-      style={{ backgroundImage: `url(${images[index]})` }}
-    >
-      <div className="hero-overlay" />
+    <section className="hero hero-slider">
 
-      <div className="hero-content">
-        <h1>Welcome to Our Restaurant</h1>
-        <p>Delicious food, unforgettable moments.</p>
-        <a href="/menu" className="hero-btn">View Menu</a>
+      <div className="hero-image-container">
+        <img src={images[index]} alt="Hero" className="hero-image" />
+
+        <div className="hero-text-overlay">
+          <h1>Wrap Master</h1>
+          <p>“We don’t sell wraps. We wrap satisfaction.”</p>
+          <a href="/menu" className="hero-btn">View Menu & Order</a>
+        </div>
       </div>
+
     </section>
   );
 }

@@ -1,51 +1,64 @@
 export default function About() {
   return (
     <section id="about" className="about-section">
-      {/* Block 1 */}
+      {/* Single About Block */}
       <div className="about-block">
         <div className="about-image">
-          <img src="/about/1.jpg" alt="Our Story" />
+          <img src="/about/aboutus.jpg" alt="Wrap Master Fresh Wrap" />
         </div>
 
         <div className="about-text">
-          <h2>Our Story</h2>
-          <p>
-            Founded on January 2nd, 2023, in Jyväskylä, Finland, our catering
-            journey began with a simple but heartfelt goal — to bring the
-            authentic taste of Sri Lanka to those living far from home. Inspired
-            by the longing for familiar flavors, we set out to serve the Sri
-            Lankan community in Finland with the comforting dishes they grew up
-            with.
-          </p>
-          <p>
-            Whether it’s a spicy curry, a warm roti, or a traditional sweet, our
-            mission is to recreate the essence of home through food rich in
-            culture, made with love, and always full of flavor.
-          </p>
-        </div>
-      </div>
+          <h2>About Us</h2>
 
-      {/* Block 2 */}
-      <div className="about-block reverse">
-        <div className="about-text">
-          <h2>Authentic Sri Lankan Cuisine</h2>
           <p>
-            At the heart of our catering service is a deep commitment to
-            delivering truly authentic Sri Lankan cuisine. Every dish we prepare
-            reflects the vibrant flavors, bold spices, and rich culinary
-            traditions of Sri Lanka.
+            <em>“We don’t sell wraps. We wrap satisfaction.”</em> – Master Xu
+            (The founder)
           </p>
-          <p>
-            From fragrant rice and curry to savory street food favorites, our
-            menu is crafted to evoke the tastes and aromas that remind you of
-            home. Whether you're craving a comforting bowl of dhal or a spicy
-            chicken curry, we use traditional recipes and fresh ingredients to
-            bring you an unforgettable dining experience.
-          </p>
-        </div>
 
-        <div className="about-image">
-          <img src="/about/2.jpg" alt="Sri Lankan Cuisine" />
+          <p>
+            <strong>FRESH. FULL-FILLED. UNFORGETTABLE.</strong>
+          </p>
+          <p>
+            <strong>ALL ASIAN DELICACIES IN ONE BIG WRAP.</strong>
+          </p>
+
+          <p>
+            At Wrap Master, we’re here to challenge the wrap game. Our wraps are
+            made with 120g of freshly grilled meat, hand‑wrapped in soft,
+            made‑on‑site flatbread, balanced with crisp greens and bold sauces.
+          </p>
+
+          <p>
+            No shortcuts. No secrets. Just food that delivers - on taste,
+            fullness, and nutrition.
+          </p>
+
+          <p>Every wrap is crafted with intention:</p>
+
+          <p>
+            👉 <strong>High protein</strong> for energy.
+          </p>
+          <p>
+            👉 <strong>Balanced ingredients</strong> for wellness.
+          </p>
+          <p>
+            👉 <strong>Fresh preparation</strong> for flavor you can trust.
+          </p>
+
+          <p>
+            💥 <strong>Loaded with real protein</strong>
+            <br />
+            🥗 <strong>Light enough to feel good</strong>
+            <br />
+            🔥 <strong>Grilled and wrapped fresh, right in front of you</strong>
+            <br />
+            👀 <strong>See‑through kitchen - no mystery meals</strong>
+          </p>
+
+          <p>
+            We built Wrap Master for people who want more - and better. More
+            flavor. More fullness. More honesty in every bite.
+          </p>
         </div>
       </div>
     </section>

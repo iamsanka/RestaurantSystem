@@ -5,6 +5,7 @@ import MenuItemCard from "./MenuItemCard";
 import EditItemModal from "./EditItemModal";
 import DeleteConfirmModal from "./DeleteConfirmModal";
 import CreateItemModal from "./CreateItemModal";
+import { useRouter } from "next/navigation";
 
 export default function AdminMenuPage() {
   const [items, setItems] = useState([]);
@@ -13,10 +14,10 @@ export default function AdminMenuPage() {
   const [editItem, setEditItem] = useState(null);
   const [deleteItemId, setDeleteItemId] = useState(null);
 
-  // NEW: Create modal state
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   const API = process.env.NEXT_PUBLIC_API_URL;
+  const router = useRouter();
 
   async function loadMenu() {
     const res = await fetch(`${API}/api/menu`);
@@ -47,6 +48,21 @@ export default function AdminMenuPage() {
 
   return (
     <div style={{ padding: "40px", color: "white" }}>
+      {/* ⭐ BACK BUTTON */}
+      <button
+        onClick={() => router.push("/admin/dashboard")}
+        style={{
+          background: "transparent",
+          border: "none",
+          color: "var(--forest-mint)",
+          fontSize: "16px",
+          cursor: "pointer",
+          marginBottom: "20px",
+        }}
+      >
+        ← Back to Dashboard
+      </button>
+
       <h1 style={{ marginBottom: "30px", fontWeight: "bold" }}>
         Menu Management
       </h1>

@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+
+import "./styles/colors.css";
 import "./globals.css";
 import { CartProvider } from "./context/CartContext";
-import Navbar from "./components/Navbar";
-import CartSidebar from "./components/CartSidebar";
+
+import HideNavWrapper from "./components/HideNavWrapper";
+
 import "./styles/navbar.css";
 import "./styles/cart.css";
 import "./styles/checkout.css";
@@ -42,8 +45,7 @@ export default function RootLayout({
 
       <body className="min-h-full flex flex-col">
         <CartProvider>
-          <Navbar />
-          <CartSidebar />
+          <HideNavWrapper />
           {children}
         </CartProvider>
       </body>

@@ -1,7 +1,9 @@
-/* 🌿 FOOTER SECTION */
+/* ⭐ FOOTER SECTION — Yellow Theme */
 .footer-section {
-    background: var(--forest-dark);
-    color: var(--forest-mint);
+    background: var(--neon-yellow);
+    /* full yellow background */
+    color: var(--pure-black);
+    /* black text */
     padding: 60px 20px 20px;
 }
 
@@ -15,10 +17,12 @@
     flex-wrap: wrap;
 }
 
-/* Bordered boxes */
+/* ⭐ Gold inner boxes with white borders */
 .footer-box {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: var(--warm-gold);
+    /* gold background */
+    border: 3px solid white;
+    /* white border */
     padding: 30px;
     border-radius: 12px;
     flex: 1;
@@ -36,7 +40,8 @@
 .footer-right h2 {
     margin-bottom: 20px;
     font-size: 1.8rem;
-    color: var(--forest-mint);
+    color: var(--pure-black);
+    /* black headings */
 }
 
 /* Contact items */
@@ -46,7 +51,8 @@
 
 .footer-item h4 {
     margin-bottom: 5px;
-    color: var(--forest-medium);
+    color: var(--pure-black);
+    /* black subheadings */
 }
 
 /* Social icons */
@@ -56,13 +62,14 @@
 }
 
 .footer-socials a {
-    color: var(--forest-mint);
+    color: var(--pure-black);
+    /* black icons */
     font-size: 1.4rem;
-    transition: color 0.2s;
+    transition: opacity 0.2s;
 }
 
 .footer-socials a:hover {
-    color: var(--forest-medium);
+    opacity: 0.6;
 }
 
 /* Form */
@@ -76,25 +83,34 @@
 .footer-form textarea {
     padding: 14px;
     border-radius: 6px;
-    border: none;
+    border: 2px solid white;
+    /* white border */
     outline: none;
-    background: var(--forest-green);
-    color: white;
+    background: var(--soft-orange);
+    /* orange fields */
+    color: var(--pure-black);
+    /* black text */
+    font-weight: 500;
 }
 
 .footer-form button {
     padding: 14px;
-    background: var(--forest-medium);
-    color: var(--forest-dark);
-    border: none;
+    background: white;
+    /* white button */
+    color: var(--pure-black);
+    /* black text */
+    border: 3px solid var(--pure-black);
     border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: 0.2s ease;
 }
 
 .footer-form button:hover {
-    background: var(--forest-mint);
+    background: var(--soft-orange);
+    /* orange hover */
+    color: white;
+    border-color: white;
 }
 
 /* Copyright */
@@ -102,7 +118,9 @@
     text-align: center;
     margin-top: 40px;
     padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 2px solid white;
+    /* white divider */
+    color: var(--pure-black);
 }
 
 /* Responsive */

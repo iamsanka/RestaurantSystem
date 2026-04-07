@@ -45,43 +45,55 @@ export default function LoginPage() {
     <div
       style={{
         minHeight: "100vh",
-        background: "var(--forest-medium)",
+        background: "var(--neon-yellow)", // ⭐ BRAND BACKGROUND
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        color: "white",
+        color: "var(--pure-black)",
+        padding: "20px",
       }}
     >
       <form
         onSubmit={handleSubmit}
         style={{
-          background: "var(--forest-green)",
-          padding: "30px",
-          borderRadius: "12px",
-          width: "320px",
-          boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
+          background: "var(--pure-black)", // ⭐ BLACK CARD
+          padding: "35px",
+          borderRadius: "14px",
+          width: "340px",
+          boxShadow: "0 6px 20px rgba(0,0,0,0.4)",
+          color: "white",
         }}
       >
-        <h1 style={{ marginBottom: "20px", textAlign: "center" }}>
+        <h1
+          style={{
+            marginBottom: "25px",
+            textAlign: "center",
+            fontWeight: "900",
+            fontSize: "1.8rem",
+            color: "var(--neon-yellow)", // ⭐ TITLE COLOR
+          }}
+        >
           Staff Login
         </h1>
 
-        <label style={{ display: "block", marginBottom: "8px" }}>Email</label>
+        <label style={{ display: "block", marginBottom: "6px" }}>Email</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           style={{
             width: "100%",
-            padding: "8px",
-            borderRadius: "6px",
-            border: "1px solid #ccc",
-            marginBottom: "12px",
+            padding: "10px",
+            borderRadius: "8px",
+            border: "2px solid var(--warm-gold)", // ⭐ GOLD BORDER
+            marginBottom: "14px",
+            background: "#111",
+            color: "white",
           }}
           required
         />
 
-        <label style={{ display: "block", marginBottom: "8px" }}>
+        <label style={{ display: "block", marginBottom: "6px" }}>
           Password
         </label>
         <input
@@ -90,30 +102,47 @@ export default function LoginPage() {
           onChange={(e) => setPassword(e.target.value)}
           style={{
             width: "100%",
-            padding: "8px",
-            borderRadius: "6px",
-            border: "1px solid #ccc",
-            marginBottom: "16px",
+            padding: "10px",
+            borderRadius: "8px",
+            border: "2px solid var(--warm-gold)",
+            marginBottom: "18px",
+            background: "#111",
+            color: "white",
           }}
           required
         />
 
         {error && (
-          <p style={{ color: "#ffb3b3", marginBottom: "10px" }}>{error}</p>
+          <p
+            style={{
+              color: "#ff6b6b",
+              marginBottom: "12px",
+              fontWeight: "bold",
+            }}
+          >
+            {error}
+          </p>
         )}
 
         <button
           type="submit"
           style={{
             width: "100%",
-            padding: "10px",
+            padding: "12px",
             borderRadius: "8px",
             border: "none",
-            background: "var(--forest-mint)",
-            color: "var(--forest-dark)",
+            background: "var(--neon-yellow)", // ⭐ BRAND BUTTON
+            color: "var(--pure-black)",
             fontWeight: "bold",
             cursor: "pointer",
+            transition: "0.2s ease",
           }}
+          onMouseOver={(e) =>
+            (e.currentTarget.style.background = "var(--soft-orange)")
+          }
+          onMouseOut={(e) =>
+            (e.currentTarget.style.background = "var(--neon-yellow)")
+          }
         >
           Login
         </button>

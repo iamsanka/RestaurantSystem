@@ -1,15 +1,9 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function sendEmail(to, order) {
   if (!to) return;
-
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
 
   const { orderNumber, items, totalAmount } = order;
 
@@ -81,10 +75,18 @@ export default async function sendEmail(to, order) {
     </div>
   `;
 
-  await transporter.sendMail({
-    from: process.env.EMAIL_USER,
-    to,
-    subject: `Order Confirmation — ${orderNumber}`,
-    html,
-  });
+  try {
+    const result = await resend.emails.send({
+      from: process.env.EMAIL_FROM, // e.g. no-reply@yourdomain.eu.org
+      to,
+      subject: `Order Confirmation — ${orderNumber}`,
+      html,
+    });
+
+    if (result.error) {
+      console.error("Resend email error:", result.error);
+    }
+  } catch (err) {
+    console.error("Resend sendEmail() error:", err);
+  }
 }

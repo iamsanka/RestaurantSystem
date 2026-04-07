@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import PreparingOrderCard from "./PreparingOrderCard";
+import { useRouter } from "next/navigation";
 
 const socket = io(process.env.NEXT_PUBLIC_API_URL!, {
   transports: ["websocket"],
@@ -29,18 +30,34 @@ type OrderItem = {
 };
 
 export default function StaffOrdersPage() {
+  const router = useRouter();
+
+  const [role, setRole] = useState<"staff" | "admin" | null>(null);
+
   const [orders, setOrders] = useState<Order[]>([]);
   const [itemsByOrder, setItemsByOrder] = useState<Record<number, OrderItem[]>>(
     {},
   );
 
-  // ⭐ FRONTEND-ONLY TIMER MAP
   const [timers, setTimers] = useState<Record<number, number>>({});
+  const [todayStats, setTodayStats] = useState({ total: 0, avgPrep: 0 });
 
-  const [todayStats, setTodayStats] = useState({
-    total: 0,
-    avgPrep: 0,
-  });
+  /* ---------------------------
+     Detect role for Back button
+  ---------------------------- */
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    try {
+      const payload = JSON.parse(
+        atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")),
+      );
+      setRole(payload.role);
+    } catch {
+      setRole(null);
+    }
+  }, []);
 
   function logout() {
     localStorage.removeItem("token");
@@ -53,9 +70,6 @@ export default function StaffOrdersPage() {
     return `${m}m ${s}s`;
   }
 
-  /* ---------------------------
-     Load items
-  ---------------------------- */
   async function loadItems(orderId: number) {
     const token = window.localStorage.getItem("token");
     const res = await fetch(
@@ -72,9 +86,6 @@ export default function StaffOrdersPage() {
     }));
   }
 
-  /* ---------------------------
-     Stats
-  ---------------------------- */
   function calculateTodayStats(allOrders: Order[]) {
     const today = new Date().toISOString().slice(0, 10);
 
@@ -96,11 +107,6 @@ export default function StaffOrdersPage() {
     setTodayStats({ total, avgPrep });
   }
 
-  /* ---------------------------
-     Initial load
-     Active orders → start timer at 0
-     Done orders → show DB time
-  ---------------------------- */
   useEffect(() => {
     async function loadOrders() {
       const token = window.localStorage.getItem("token");
@@ -115,7 +121,7 @@ export default function StaffOrdersPage() {
 
         data.orders.forEach((o: Order) => {
           if (o.status !== "done") {
-            newTimers[o.id] = now; // start from 0
+            newTimers[o.id] = now;
           }
         });
 
@@ -129,17 +135,13 @@ export default function StaffOrdersPage() {
     loadOrders();
   }, []);
 
-  /* ---------------------------
-     Real-time updates
-     ⭐ FIX: KEEP TIMER WHEN MOVING RECEIVED → PREPARING
-  ---------------------------- */
   useEffect(() => {
     function handleNew(order: Order) {
       const now = Date.now();
 
       setTimers((prev) => ({
         ...prev,
-        [order.id]: now, // new order → start at 0
+        [order.id]: now,
       }));
 
       setOrders((prev) => {
@@ -156,11 +158,10 @@ export default function StaffOrdersPage() {
         const newTimers = { ...prev };
 
         if (updatedOrder.status === "done") {
-          delete newTimers[updatedOrder.id]; // freeze
+          delete newTimers[updatedOrder.id];
         } else {
-          // ⭐ DO NOT RESET TIMER IF IT ALREADY EXISTS
           if (!newTimers[updatedOrder.id]) {
-            newTimers[updatedOrder.id] = Date.now(); // only for first time
+            newTimers[updatedOrder.id] = Date.now();
           }
         }
 
@@ -196,9 +197,6 @@ export default function StaffOrdersPage() {
     };
   }, []);
 
-  /* ---------------------------
-     Update order status
-  ---------------------------- */
   async function updateStatus(
     id: number,
     status: Order["status"],
@@ -215,9 +213,6 @@ export default function StaffOrdersPage() {
     });
   }
 
-  /* ---------------------------
-     Toggle item
-  ---------------------------- */
   async function toggleItem(
     orderId: number,
     itemId: number,
@@ -245,9 +240,6 @@ export default function StaffOrdersPage() {
     }
   }
 
-  /* ---------------------------
-     Group items
-  ---------------------------- */
   function groupItems(items: OrderItem[]) {
     const groups: Record<string, OrderItem[]> = {};
     for (const item of items) {
@@ -270,44 +262,64 @@ export default function StaffOrdersPage() {
         color: "white",
       }}
     >
-      {/* TOP BAR */}
+      {/* ⭐ TOP BAR WITH BACK BUTTON + LOGOUT ON SAME LINE */}
       <div
         style={{
           display: "flex",
-          justifyContent: "flex-end",
+          justifyContent: "space-between",
           alignItems: "center",
-          gap: "20px",
           marginBottom: "20px",
         }}
       >
-        <div
-          style={{
-            padding: "10px 16px",
-            background: "rgba(255,255,255,0.08)",
-            borderRadius: "10px",
-            border: "1px solid rgba(255,255,255,0.15)",
-            backdropFilter: "blur(6px)",
-            fontWeight: "bold",
-          }}
-        >
-          Today: {todayStats.total} orders • Avg:{" "}
-          {formatTime(todayStats.avgPrep)}
-        </div>
-
+        {/* LEFT: BACK BUTTON */}
         <button
-          onClick={logout}
+          onClick={() =>
+            router.push(
+              role === "admin" ? "/admin/dashboard" : "/staff/dashboard",
+            )
+          }
           style={{
-            padding: "10px 16px",
-            background: "#b91c1c",
-            color: "white",
+            background: "transparent",
             border: "none",
-            borderRadius: "8px",
-            fontWeight: "bold",
+            color: "var(--forest-mint)",
+            fontSize: "16px",
             cursor: "pointer",
           }}
         >
-          Logout
+          ← Back to Dashboard
         </button>
+
+        {/* RIGHT: STATS + LOGOUT */}
+        <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+          <div
+            style={{
+              padding: "10px 16px",
+              background: "rgba(255,255,255,0.08)",
+              borderRadius: "10px",
+              border: "1px solid rgba(255,255,255,0.15)",
+              backdropFilter: "blur(6px)",
+              fontWeight: "bold",
+            }}
+          >
+            Today: {todayStats.total} orders • Avg:{" "}
+            {formatTime(todayStats.avgPrep)}
+          </div>
+
+          <button
+            onClick={logout}
+            style={{
+              padding: "10px 16px",
+              background: "#b91c1c",
+              color: "white",
+              border: "none",
+              borderRadius: "8px",
+              fontWeight: "bold",
+              cursor: "pointer",
+            }}
+          >
+            Logout
+          </button>
+        </div>
       </div>
 
       {/* 3 COLUMNS */}
@@ -490,13 +502,11 @@ function OrderCard({
   const [seconds, setSeconds] = useState<number>(0);
 
   useEffect(() => {
-    // DONE → show DB time only
     if (order.status === "done") {
       setSeconds(order.preparation_time ?? 0);
       return;
     }
 
-    // ACTIVE → continue from timers map
     const start = timers[order.id] ?? Date.now();
     setSeconds(0);
 

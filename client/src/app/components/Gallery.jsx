@@ -5,7 +5,7 @@ export default function Gallery() {
     <section id="gallery" className="gallery-section">
       <h2 className="gallery-title">Gallery</h2>
       <p className="gallery-subtitle">
-        A glimpse into our authentic Sri Lankan flavors
+        A glimpse into our authentic flavors
       </p>
 
       <Carousel />

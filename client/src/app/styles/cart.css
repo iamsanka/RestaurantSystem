@@ -1,55 +1,73 @@
-/* 🌿 CART SIDEBAR */
+/* 🌟 CART SIDEBAR */
 .cart-sidebar {
     position: fixed;
     top: 0;
     right: -400px;
     width: 350px;
-    height: 100%;
-    background: var(--forest-dark);
-    color: white;
-    padding: 20px;
-    transition: right 0.3s ease;
-    z-index: 9999;
-    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.4);
+    height: 100vh;
+    background: var(--warm-gold);
+    /* GOLD BACKGROUND */
+    color: var(--pure-black);
+    padding: 22px;
+    transition: right 0.35s ease;
+    z-index: 99999;
+    /* ALWAYS ABOVE NAVBAR */
+    box-shadow: -6px 0 25px rgba(0, 0, 0, 0.45);
+    display: flex;
+    flex-direction: column;
 }
 
 .cart-sidebar.open {
     right: 0;
 }
 
-/* 🌿 HEADER */
+/* 🌟 HEADER */
 .cart-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 18px;
+}
+
+.cart-header h2 {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--pure-black);
 }
 
 .close-btn {
     background: none;
     border: none;
     font-size: 2rem;
-    color: white;
+    color: var(--pure-black);
     cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
-/* 🌿 CART ITEMS */
+.close-btn:hover {
+    transform: scale(1.15);
+}
+
+/* 🌟 CART ITEMS */
 .cart-items {
-    margin-top: 20px;
+    flex: 1;
     overflow-y: auto;
-    height: 65%;
+    padding-right: 6px;
 }
 
 .cart-item {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 10px;
+    align-items: flex-start;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
 }
 
-/* 🌿 ITEM TEXT */
+/* 🌟 ITEM TEXT */
 .cart-item h4 {
     font-size: 1rem;
+    font-weight: 700;
     margin-bottom: 4px;
 }
 
@@ -58,27 +76,26 @@
     opacity: 0.9;
 }
 
-/* 🌿 REMOVED INGREDIENTS */
+/* 🌟 REMOVED INGREDIENTS */
 .cart-item .removed {
     font-size: 0.75rem;
-    color: #cccccc;
+    color: #333;
     margin-top: 4px;
 }
 
-/* 🌿 QUANTITY CONTROLS */
+/* 🌟 QUANTITY CONTROLS */
 .qty-controls {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-/* ⭐ HIGH‑CONTRAST BUTTONS */
 .qty-controls button {
-    background: #ffffff;
-    color: #000000;
-    border: 2px solid var(--forest-mint);
+    background: var(--pure-black);
+    color: var(--warm-gold);
+    border: none;
     padding: 6px 12px;
-    border-radius: 8px;
+    border-radius: 6px;
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
@@ -86,16 +103,16 @@
 }
 
 .qty-controls button:hover {
-    background: var(--forest-mint);
-    color: var(--forest-dark);
+    background: var(--soft-orange);
+    color: white;
     transform: scale(1.05);
 }
 
-/* 🌿 REMOVE BUTTON */
+/* 🌟 REMOVE BUTTON */
 .remove-btn {
     background: transparent;
     border: none;
-    color: #ff6b6b;
+    color: #b30000;
     cursor: pointer;
     font-size: 0.85rem;
     margin-left: 10px;
@@ -103,24 +120,45 @@
 }
 
 .remove-btn:hover {
-    color: #ff3b3b;
+    color: #ff0000;
 }
 
-/* 🌿 FOOTER */
+/* 🌟 FOOTER */
 .cart-footer {
     margin-top: 20px;
 }
 
 .cart-footer h3 {
     margin-bottom: 15px;
+    font-size: 1.3rem;
+    font-weight: 900;
 }
 
-/* 🌿 CHECKOUT BUTTON */
+/* 🌟 CLEAR CART BUTTON */
+.clear-cart-btn {
+    width: 100%;
+    padding: 12px;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.clear-cart-btn:hover {
+    background: #ff1a1a;
+    transform: scale(1.03);
+}
+
+/* 🌟 CHECKOUT BUTTON */
 .checkout-btn {
     width: 100%;
     padding: 12px;
-    background: var(--forest-mint);
-    color: var(--forest-dark);
+    background: var(--pure-black);
+    color: var(--warm-gold);
     border: none;
     border-radius: 6px;
     font-weight: bold;
@@ -129,6 +167,7 @@
 }
 
 .checkout-btn:hover {
-    background: white;
+    background: var(--soft-orange);
+    color: white;
     transform: scale(1.03);
 }

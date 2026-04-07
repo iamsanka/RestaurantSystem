@@ -1,20 +1,13 @@
 import express from "express";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 const router = express.Router();
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 router.post("/send-receipt", async (req, res) => {
   const { orderNumber, customerName, items, email } = req.body;
 
   try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
     const total = items.reduce((sum, i) => sum + i.price * i.qty, 0).toFixed(2);
 
     const html = `
@@ -67,12 +60,18 @@ router.post("/send-receipt", async (req, res) => {
       </div>
     `;
 
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+    // ⭐ SEND EMAIL USING RESEND
+    const result = await resend.emails.send({
+      from: process.env.EMAIL_FROM, // e.g. no-reply@yourdomain.eu.org
       to: email,
       subject: `Your Receipt — Order ${orderNumber}`,
       html,
     });
+
+    if (result.error) {
+      console.error("Resend error:", result.error);
+      return res.json({ success: false });
+    }
 
     res.json({ success: true });
   } catch (err) {

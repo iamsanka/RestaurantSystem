@@ -14,17 +14,13 @@ export default function MenuPage() {
 
   async function loadMenu() {
     try {
-      const res = await fetch(`${API}/api/menu`, {
-        cache: "no-store",
-      });
-
+      const res = await fetch(`${API}/api/menu`, { cache: "no-store" });
       const data = await res.json();
 
       const safeItems = data.items.map((item) => {
         let ingredients = item.ingredients;
 
         if (Array.isArray(ingredients)) {
-          // ok
         } else if (typeof ingredients === "string") {
           try {
             ingredients = JSON.parse(ingredients);
@@ -40,7 +36,6 @@ export default function MenuPage() {
 
       setItems(safeItems);
 
-      // ⭐ Build category list dynamically from DB items
       const uniqueCategories = Array.from(
         new Set(
           safeItems
@@ -55,14 +50,15 @@ export default function MenuPage() {
     }
   }
 
+  // ⭐ Apply yellow background ONLY on this page
+  useEffect(() => {
+    document.body.classList.add("menu-bg-yellow");
+    return () => document.body.classList.remove("menu-bg-yellow");
+  }, []);
+
   useEffect(() => {
     loadMenu();
-
-    // ⭐ Real-time updates
-    socket.on("menu:update", () => {
-      loadMenu();
-    });
-
+    socket.on("menu:update", loadMenu);
     return () => socket.off("menu:update");
   }, []);
 

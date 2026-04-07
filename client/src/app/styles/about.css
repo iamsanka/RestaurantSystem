@@ -1,8 +1,9 @@
-/* 🌿 ABOUT SECTION */
+/* ⭐ ABOUT SECTION — Yellow Background Theme */
 .about-section {
     padding: 80px 20px;
-    background: var(--forest-dark);
-    color: var(--forest-mint);
+    background: var(--neon-yellow);
+    /* full yellow background */
+    color: var(--pure-black);
     display: flex;
     flex-direction: column;
     gap: 80px;
@@ -16,6 +17,13 @@
     gap: 40px;
     max-width: 1200px;
     margin: auto;
+
+    background: var(--warm-gold);
+    /* gold inner background */
+    border: 4px solid white;
+    /* white border */
+    border-radius: 12px;
+    padding: 40px;
 }
 
 /* Reverse layout for second block */
@@ -29,7 +37,10 @@
     max-width: 500px;
     border-radius: 12px;
     object-fit: cover;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+    border: 3px solid white;
+    /* white border around image */
 }
 
 /* Text styling */
@@ -39,14 +50,27 @@
 
 .about-text h2 {
     margin-bottom: 20px;
-    font-size: 2rem;
-    color: var(--forest-mint);
+    font-size: 2.4rem;
+    /* bigger */
+    font-weight: 900;
+    /* much bolder */
+    letter-spacing: 1px;
+    /* cleaner spacing */
+    color: var(--pure-black);
+    /* keep your theme */
+    text-transform: uppercase;
+    /* optional but strong */
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.4);
+    /* subtle premium pop */
 }
+
 
 .about-text p {
     margin-bottom: 15px;
     line-height: 1.6;
-    color: #e8ffe9;
+    color: var(--pure-black);
+    /* readable black text */
+    font-size: 1.1rem;
 }
 
 /* Responsive */

@@ -1,21 +1,24 @@
-/* 🌿 MENU PAGE BACKGROUND */
+/* 🌟 MENU PAGE BACKGROUND */
 .menu-page {
-    padding: 60px 20px;
-    background: var(--forest-medium);
+    padding: 120px 20px 60px;
+    background: var(--neon-yellow);
     min-height: 100vh;
-    color: white;
+    color: var(--pure-black);
 }
 
-/* 🌿 PAGE TITLE */
+
+/* 🌟 PAGE TITLE */
 .menu-title {
     text-align: center;
-    font-size: 2.8rem;
+    font-size: 3rem;
     margin-bottom: 50px;
-    color: var(--forest-mint);
-    letter-spacing: 1px;
+    color: var(--pure-black);
+    letter-spacing: 1.5px;
+    font-weight: 900;
+    text-transform: uppercase;
 }
 
-/* 🌿 CATEGORY SECTION */
+/* 🌟 CATEGORY SECTION */
 .menu-category {
     margin-bottom: 70px;
 }
@@ -23,39 +26,38 @@
 .category-title {
     font-size: 2rem;
     margin-bottom: 25px;
-    color: var(--forest-mint);
-    border-left: 4px solid var(--forest-mint);
+    color: var(--pure-black);
+    border-left: 4px solid var(--pure-black);
     padding-left: 12px;
+    font-weight: 800;
 }
 
-/* 🌿 GRID LAYOUT */
+/* 🌟 GRID LAYOUT */
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
     gap: 30px;
 }
 
-/* 🌿 MENU CARD */
+/* 🌟 MENU CARD */
 .menu-card {
-    background: var(--forest-green);
+    background: var(--pure-black);
     padding: 18px;
     border-radius: 14px;
     text-align: center;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     border: 1px solid rgba(255, 255, 255, 0.08);
 
-    /* ⭐ NEW: Make all cards equal height */
     display: flex;
     flex-direction: column;
 }
 
-/* ⭐ NEW: This wrapper grows to fill space */
 .menu-card-content {
     flex: 1;
 }
 
-/* 🌿 CARD IMAGE */
+/* 🌟 CARD IMAGE */
 .menu-card-img {
     width: 100%;
     height: 170px;
@@ -64,52 +66,49 @@
     margin-bottom: 12px;
 }
 
-/* 🌿 CARD TEXT */
+/* 🌟 CARD TEXT */
 .menu-card-name {
     margin: 10px 0 4px;
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: 700;
+    color: white;
 }
 
 .menu-card-price {
-    color: var(--forest-mint);
+    color: var(--soft-orange);
     font-size: 1.1rem;
     margin-bottom: 14px;
     font-weight: bold;
 }
 
-/* 🌿 ADD TO CART BUTTON */
+/* 🌟 INGREDIENT TEXT */
+.menu-card-ingredients {
+    color: white;
+    font-size: 0.95rem;
+    opacity: 0.85;
+    margin-bottom: 14px;
+}
+
+/* 🌟 ADD TO CART BUTTON */
 .menu-card-btn {
-    background: var(--forest-mint);
-    color: var(--forest-dark);
+    background: var(--neon-yellow);
+    color: var(--pure-black);
     border: none;
     padding: 10px 16px;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
     transition: background 0.2s ease, transform 0.2s ease;
-
-    /* ⭐ NEW: Push button to bottom */
     margin-top: auto;
 }
 
 .menu-card-btn:hover {
-    background: white;
+    background: var(--soft-orange);
+    color: white;
     transform: scale(1.05);
 }
 
-/* 🌿 RESPONSIVE */
-@media (max-width: 600px) {
-    .menu-title {
-        font-size: 2.2rem;
-    }
-
-    .category-title {
-        font-size: 1.6rem;
-    }
-}
-
-/* 🌿 Quantity Controls on Menu Cards */
+/* 🌟 QUANTITY CONTROLS */
 .menu-card-qty {
     display: flex;
     justify-content: center;
@@ -119,8 +118,8 @@
 }
 
 .qty-btn {
-    background: var(--forest-mint);
-    color: var(--forest-dark);
+    background: var(--warm-gold);
+    color: var(--pure-black);
     border: none;
     padding: 6px 12px;
     border-radius: 8px;
@@ -131,12 +130,24 @@
 }
 
 .qty-btn:hover {
-    background: white;
+    background: var(--soft-orange);
+    color: white;
     transform: scale(1.05);
 }
 
 .qty-number {
     font-size: 1.2rem;
     font-weight: bold;
-    color: var(--forest-mint);
+    color: var(--pure-black);
+}
+
+/* 🌟 RESPONSIVE */
+@media (max-width: 600px) {
+    .menu-title {
+        font-size: 2.2rem;
+    }
+
+    .category-title {
+        font-size: 1.6rem;
+    }
 }

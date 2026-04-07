@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import CreateStaffModal from "./CreateStaffModal";
 import EditStaffModal from "./EditStaffModal";
+import { useRouter } from "next/navigation";
 
 export default function StaffPage() {
   const [staff, setStaff] = useState([]);
@@ -11,6 +12,7 @@ export default function StaffPage() {
   const [editUser, setEditUser] = useState(null);
 
   const API = process.env.NEXT_PUBLIC_API_URL;
+  const router = useRouter();
 
   async function loadStaff() {
     try {
@@ -111,6 +113,22 @@ export default function StaffPage() {
 
   return (
     <div style={{ padding: "40px" }}>
+
+      {/* ⭐ BACK BUTTON */}
+      <button
+        onClick={() => router.push("/admin/dashboard")}
+        style={{
+          background: "transparent",
+          border: "none",
+          color: "var(--forest-mint)",
+          fontSize: "16px",
+          cursor: "pointer",
+          marginBottom: "20px",
+        }}
+      >
+        ← Back to Dashboard
+      </button>
+
       <h1 style={{ fontSize: "2rem", marginBottom: "20px" }}>
         Staff Management
       </h1>

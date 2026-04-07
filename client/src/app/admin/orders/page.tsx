@@ -3,6 +3,7 @@
 import { useState } from "react";
 import OrderRow from "./OrderRow";
 import DatePicker from "react-datepicker";
+import { useRouter } from "next/navigation";
 
 type OrderItem = {
   id: number;
@@ -40,12 +41,12 @@ export default function AdminOrdersPage() {
   const [name, setName] = useState("");
   const [orderNumber, setOrderNumber] = useState("");
 
-  // ⭐ Calendar date state
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const [loading, setLoading] = useState(false);
 
   const API = process.env.NEXT_PUBLIC_API_URL as string;
+  const router = useRouter();
 
   function buildQueryParams() {
     const params = new URLSearchParams();
@@ -131,6 +132,21 @@ export default function AdminOrdersPage() {
         color: "white",
       }}
     >
+      {/* ⭐ BACK BUTTON */}
+      <button
+        onClick={() => router.push("/admin/dashboard")}
+        style={{
+          background: "transparent",
+          border: "none",
+          color: "var(--forest-mint)",
+          fontSize: "16px",
+          cursor: "pointer",
+          marginBottom: "20px",
+        }}
+      >
+        ← Back to Dashboard
+      </button>
+
       <h1 style={{ fontSize: "2rem", marginBottom: "20px" }}>
         Order Management
       </h1>

@@ -1,5 +1,31 @@
+"use client";
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+
+  // ⭐ Handle form submission (Resend API)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      message: e.target.message.value,
+    };
+
+    const res = await fetch("/api/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    if (res.ok) {
+      alert("Message sent successfully!");
+      e.target.reset();
+    } else {
+      alert("Failed to send message. Please try again.");
+    }
+  };
 
   return (
     <footer id="footer" className="footer-section">
@@ -13,11 +39,10 @@ export default function Footer() {
           <div className="footer-item">
             <h4>Email:</h4>
             <a
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=info@taprobane.fi&su=Inquiry%20from%20Website&body=Hello%2C%20I%20would%20like%20to%20ask..."
-              target="_blank"
+              href="mailto:orders@restaurantapp.eu.org"
               className="footer-link"
             >
-              info@taprobane.fi
+              orders@restaurantapp.eu.org
             </a>
           </div>
 
@@ -25,30 +50,22 @@ export default function Footer() {
             <h4>Phone:</h4>
 
             <a
-              href="https://wa.me/358442363616?text=Hello%20I%20would%20like%20to%20inquire%20about%20your%20services"
+              href="https://wa.me/358503699361?text=Hello%20I%20would%20like%20to%20inquire%20about%20your%20services"
               target="_blank"
               className="footer-link"
             >
-              +358 442363616
-            </a>
-            <br />
-            <a
-              href="https://wa.me/358442363618?text=Hello%20I%20would%20like%20to%20inquire%20about%20your%20services"
-              target="_blank"
-              className="footer-link"
-            >
-              +358 442363618
+              +358 503699361
             </a>
           </div>
 
           <div className="footer-item">
             <h4>Location:</h4>
             <a
-              href="https://www.google.com/maps/dir/?api=1&destination=Helsinki%2C%20Finland"
+              href="https://share.google/cpw2LyeNCdCaHFUEQ"
               target="_blank"
               className="footer-link"
             >
-              Helsinki, Finland
+              Arkadiankatu 19c, 00100 Helsinki
             </a>
           </div>
 
@@ -72,10 +89,10 @@ export default function Footer() {
         <div className="footer-box footer-right">
           <h2>Send Us a Message</h2>
 
-          <form className="footer-form">
-            <input type="text" placeholder="Your Name" required />
-            <input type="email" placeholder="Your Email" required />
-            <textarea placeholder="Your Message" rows="4" required></textarea>
+          <form className="footer-form" onSubmit={handleSubmit}>
+            <input type="text" name="name" placeholder="Your Name" required />
+            <input type="email" name="email" placeholder="Your Email" required />
+            <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
             <button type="submit">Send Message</button>
           </form>
         </div>
