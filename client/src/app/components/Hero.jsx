@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 export default function Hero() {
   const images = [
-    "/hero/1.jpg",
+    "/hero/1.png",
     "/hero/2.jpg"
   ];
 
