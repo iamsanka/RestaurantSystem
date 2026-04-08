@@ -4,11 +4,7 @@ import { useEffect, useState } from "react";
 export default function Hero() {
   const images = [
     "/hero/1.jpg",
-    "/hero/2.jpg",
-    "/hero/3.jpg",
-    "/hero/4.jpg",
-    "/hero/5.jpg",
-    "/hero/6.jpg"
+    "/hero/2.jpg"
   ];
 
   const [index, setIndex] = useState(0);
