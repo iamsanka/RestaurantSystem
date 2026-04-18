@@ -18,6 +18,7 @@ export default function StaffDashboard() {
         Staff Dashboard
       </h1>
 
+      {/* Order Screen Button */}
       <button
         onClick={() => router.push("/staff/orders")}
         style={{
@@ -28,9 +29,26 @@ export default function StaffDashboard() {
           borderRadius: "8px",
           fontWeight: "bold",
           cursor: "pointer",
+          marginRight: "15px",
         }}
       >
         View Order Screen
+      </button>
+
+      {/* ⭐ Kitchen View Button */}
+      <button
+        onClick={() => router.push("/staff/kitchen")}
+        style={{
+          padding: "12px 20px",
+          background: "var(--forest-green)",
+          color: "white",
+          border: "none",
+          borderRadius: "8px",
+          fontWeight: "bold",
+          cursor: "pointer",
+        }}
+      >
+        Kitchen View
       </button>
     </div>
   );

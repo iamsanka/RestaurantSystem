@@ -128,6 +128,14 @@ export default function AdminLayout({
             onClick={() => go("/admin/orders")}
           />
 
+          {/* Kitchen Orders */}
+          <SidebarButton
+            label="Kitchen View"
+            icon="fa-fire-burner"
+            open={sidebarOpen}
+            onClick={() => go("/admin/kitchen")}
+          />
+
           {/* Logout */}
           <SidebarButton
             label="Logout"
